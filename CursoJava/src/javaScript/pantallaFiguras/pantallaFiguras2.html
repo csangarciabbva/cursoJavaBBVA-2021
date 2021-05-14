@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pantalla de figuras</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Pantalla de figuras</h1>
+        <h5 class="text-secondary"></h5>
+      </div>
+    <div class="container" id="divMain">
+            <div class="row">
+                <h3 class="col">Selecciona una figura</h3>
+                <button type="submit" onclick="validarVacio()" class="btn btn-primary col-1">Submit</button>
+            </div>
+            <div class="row">
+                <select name="selectFiguras" id="selectFigurasId" onchange="cajasDeTexto(this.value)" class="col-2 ml-4">
+                    <option selected>-figura-</option>
+                </select>
+            </div>
+            <div class="row">
+                <div id="cajasTextoId" class="col-2 mt-3"></div>
+            </div>        
+    </div>
+</body>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+//instancia de la clase date y colocacion en el dom
+var date = new Date();
+document.getElementsByTagName("h5")[0].innerHTML = date.getDay()+"-"+date.getMonth()+"-"+date.getFullYear();
+
+//creacion del array de figuras
+var array = ["Cuadrado", "Circulo", "Triangulo", "Rectangulo", "Poligono"];
+
+//creacion de elementos correspondientes al dom
+var selectList = document.getElementById("selectFigurasId");
+var divCajas = document.getElementById("cajasTextoId");
+var saltoLinea = document.createElement("br");
+var myParent = document.body;
+
+//bucle de creacion de las opciones del select
+for (var i = 0; i < array.length; i++) {
+    var option = document.createElement("option");
+    option.value = array[i];
+    option.text = array[i];
+    selectList.appendChild(option);
+}
+
+//funcion para validacion de campo al hacer submit
+function validarVacio(){
+    if (divCajas.getElementsByTagName("input").length == 0) {
+        alert("Selecciona una figura")
+    }
+    else {
+        for(i=0; i <divCajas.getElementsByTagName("input").length; i ++) {
+            if(divCajas.getElementsByTagName("input")[i].value.length == 0){
+                alert("No puede haber campos vacios");
+                break;
+            }
+        }
+    }
+}
+
+//funcion para las cajas de texto, que se ejecuta a partir del cambio de valor en el select
+function cajasDeTexto(valor) {
+    document.getElementById("divMain").appendChild(divCajas);
+
+    switch(valor) {
+        case "Cuadrado":
+            divCajas.textContent = '';
+            var cajaNombre = document.createElement("input");
+            cajaNombre.type = "text";
+            cajaNombre.size=15;
+            cajaNombre.placeholder="Nombre";
+            divCajas.appendChild(cajaNombre);
+            divCajas.appendChild(saltoLinea);
+
+            var cajaLado = document.createElement("input");
+            cajaLado.type = "text";
+            cajaLado.size=15;
+            cajaLado.className="mt-2";
+            cajaLado.placeholder="Medida del lado";
+            divCajas.appendChild(cajaLado);
+            break;
+
+        case "Circulo":
+            divCajas.textContent = '';
+            var cajaNombre = document.createElement("input");
+            cajaNombre.type = "text";
+            cajaNombre.size=15;
+            cajaNombre.placeholder="Nombre";
+            divCajas.appendChild(cajaNombre);
+            divCajas.appendChild(saltoLinea);
+
+            var cajaRadio = document.createElement("input");
+            cajaRadio.type = "text";
+            cajaRadio.size=15;
+            cajaRadio.className=" mt-2";
+            cajaRadio.placeholder="Medida del radio";
+            divCajas.appendChild(cajaRadio);
+            break;
+
+        case "Triangulo":
+        divCajas.textContent = '';
+            var cajaBase = document.createElement("input");
+            var cajaAltura = document.createElement("input");
+            var cajaNombre = document.createElement("input");
+
+            cajaNombre.type = "text";
+            cajaNombre.size=15;
+            cajaNombre.placeholder="Nombre";
+            divCajas.appendChild(cajaNombre);
+            divCajas.appendChild(saltoLinea);
+
+            cajaBase.type = "text";
+            cajaBase.size=15;
+            cajaBase.className="mt-2";
+            cajaBase.placeholder="Medida de la base";
+            divCajas.appendChild(cajaBase);
+            divCajas.appendChild(saltoLinea);
+
+            cajaAltura.type = "text";
+            cajaAltura.size=15;
+            cajaAltura.className=" mt-2";
+            cajaAltura.placeholder="Medida de la altura";
+            divCajas.appendChild(cajaAltura);
+            break;
+
+        case "Rectangulo":
+            divCajas.textContent = '';
+            var cajaBase = document.createElement("input");
+            var cajaAltura = document.createElement("input");
+            var cajaNombre = document.createElement("input");
+
+            cajaNombre.type = "text";
+            cajaNombre.size=15;
+            cajaNombre.placeholder="Nombre";
+            divCajas.appendChild(cajaNombre);
+            divCajas.appendChild(saltoLinea);
+
+            cajaBase.type = "text";
+            cajaBase.size=15;
+            cajaBase.className=" mt-2";
+            cajaBase.placeholder="Medida de la base";
+            divCajas.appendChild(cajaBase);
+            divCajas.appendChild(saltoLinea);
+
+            cajaAltura.type = "text";
+            cajaAltura.size=15;
+            cajaAltura.className=" mt-2";
+            cajaAltura.placeholder="Medida de la altura";
+            divCajas.appendChild(cajaAltura);
+            break;
+    
+        case "Poligono":
+            divCajas.textContent = '';
+            var cajaNombre = document.createElement("input");
+            var cajaLado = document.createElement("input");
+            var cajaApotema = document.createElement("input");
+            var cajaNumeroLados = document.createElement("input");
+            
+            cajaNombre.type = "text";
+            cajaNombre.size=20;
+            cajaNombre.placeholder="Nombre";
+            divCajas.appendChild(cajaNombre);
+            divCajas.appendChild(saltoLinea);
+
+            cajaLado.type = "text";
+            cajaLado.size=20;
+            cajaLado.className=" mt-2";
+            cajaLado.placeholder="Medida del lado";
+            divCajas.appendChild(cajaLado);
+            divCajas.appendChild(saltoLinea);
+
+            cajaApotema.type = "text";
+            cajaApotema.size=20;
+            cajaApotema.className=" mt-2";
+            cajaApotema.placeholder="Medida de la apotema";
+            divCajas.appendChild(cajaApotema);
+            divCajas.appendChild(saltoLinea);
+
+            cajaNumeroLados.type = "text";
+            cajaNumeroLados.size=20;
+            cajaNumeroLados.className=" mt-2";
+            cajaNumeroLados.placeholder="Numero de lados";
+            divCajas.appendChild(cajaNumeroLados);
+            break;
+
+        default:
+            divCajas.textContent = '';
+            
+        }
+}
+
+</script>
+</html>
