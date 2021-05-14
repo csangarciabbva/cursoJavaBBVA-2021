@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pantalla de figuras</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Pantalla de figuras</h1>
+      </div>
+    <div class="container" id="divMain">
+            <h3>Selecciona una figura</h3>
+            <select name="selectFiguras" id="selectFigurasId" onchange="cajasDeTexto(this.value)">
+            </select>
+            
+            <div id="cajasTextoId" class="form-group mt-3"></div>
+    </div>
+</body>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+// Realizar un paquete dentro de javaScript llamado pantallaFiguras donde aparece un combo (select
+// en html) con los nombres de todas las figuras (se recomienda usar arrayFiguras) y ciclo for para ingresarlo
+// al combo, luego de acuerdo a la figura selecciona seleccionada en el combo se deben mostrar los
+// campos (de tipo texto) que le corresponda a cada figura
+
+//creacion del arrayFiguras de figuras
+var arrayFiguras = ["Cuadrado", "Circulo", "Triangulo", "Rectangulo", "Poligono"];
+
+//creacion de elementos correspondientes al dom
+var selectLista = document.getElementById("selectFigurasId");
+var saltoLinea = document.createElement("br");
+var myParent = document.body;
+
+//bucle de creacion de las opciones del select
+for (var i = 0; i < arrayFiguras.length; i++) {
+    var option = document.createElement("option");
+    option.value = arrayFiguras[i];
+    option.text = arrayFiguras[i];
+    selectLista.appendChild(option);
+}
+
+//funcion para las cajas de texto, que se ejecuta a partir del cambio de valor en el select
+function cajasDeTexto(valor) {
+    var divInputsText = document.getElementById("cajasTextoId");
+    document.getElementById("divMain").appendChild(divInputsText);
+
+    switch(valor) {
+        case "Cuadrado":
+            divInputsText.textContent = '';
+            var cajaLado = document.createElement("input");
+            cajaLado.type = "text";
+            cajaLado.size=15;
+            cajaLado.placeholder="Medida del lado";
+            divInputsText.appendChild(cajaLado);
+            break;
+
+        case "Circulo":
+            divInputsText.textContent = '';
+            var cajaRadio = document.createElement("input");
+            cajaRadio.type = "text";
+            cajaRadio.size=15;
+            cajaRadio.placeholder="Medida del radio";
+            divInputsText.appendChild(cajaRadio);
+            break;
+
+        case "Triangulo":
+            divInputsText.textContent = '';
+            var cajaBase = document.createElement("input");
+            var cajaAltura = document.createElement("input");
+
+            cajaBase.type = "text";
+            cajaBase.size=15;
+            cajaBase.placeholder="Medida de la base";
+            divInputsText.appendChild(cajaBase);
+            divInputsText.appendChild(saltoLinea);
+
+            cajaAltura.type = "text";
+            cajaAltura.size=25;
+            cajaAltura.className="form-group mt-2";
+            cajaAltura.placeholder="Medida de la altura";
+            divInputsText.appendChild(cajaAltura);
+            break;
+
+        case "Rectangulo":
+            divInputsText.textContent = '';
+            var cajaBase = document.createElement("input");
+            var cajaAltura = document.createElement("input");
+
+            cajaBase.type = "text";
+            cajaBase.size=15;
+            cajaBase.placeholder="Medida de la base";
+            divInputsText.appendChild(cajaBase);
+            divInputsText.appendChild(saltoLinea);
+
+            cajaAltura.type = "text";
+            cajaAltura.size=15;
+            cajaAltura.className="form-group mt-2";
+            cajaAltura.placeholder="Medida de la altura";
+            divInputsText.appendChild(cajaAltura);
+            break;
+    
+        case "Poligono":
+            divInputsText.textContent = '';
+            var cajaLado = document.createElement("input");
+            var cajaApotema = document.createElement("input");
+            var cajaNumeroLados = document.createElement("input");
+
+            cajaLado.type = "text";
+            cajaLado.size=15;
+            cajaLado.placeholder="Medida del lado";
+            divInputsText.appendChild(cajaLado);
+            divInputsText.appendChild(saltoLinea);
+
+            cajaApotema.type = "text";
+            cajaApotema.size=15;
+            cajaApotema.className="form-group mt-2";
+            cajaApotema.placeholder="Medida de la apotema";
+            divInputsText.appendChild(cajaApotema);
+            divInputsText.appendChild(saltoLinea);
+
+            cajaNumeroLados.type = "text";
+            cajaNumeroLados.size=15;
+            cajaNumeroLados.className="form-group mt-2";
+            cajaNumeroLados.placeholder="Numero de lados";
+            divInputsText.appendChild(cajaNumeroLados);
+            break;
+        }
+}
+
+</script>
+</html>
